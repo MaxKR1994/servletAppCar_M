@@ -1,16 +1,16 @@
 package com.example.demo.filters;
 
-/*import javax.servlet.*;
+import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Enumeration;*/
+import java.util.Enumeration;
 
 /**
  * Servlet Filter implementation class RequestLoggingFilter
  */
-/*@WebFilter("/*")
+@WebFilter("/*")
 public class RequestLoggingFilter implements Filter {
 
     private ServletContext context;
@@ -32,7 +32,7 @@ public class RequestLoggingFilter implements Filter {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                this.context.log(req.getRemoteAddr() + "::Cookie::{" + cookie.getBrand() + "," + cookie.getValue() + "}");
+                this.context.log(req.getRemoteAddr() + "::Cookie::{" + cookie.getName() + "," + cookie.getValue() + "}");
             }
         }
         // pass the request along the filter chain
@@ -42,5 +42,5 @@ public class RequestLoggingFilter implements Filter {
     public void destroy() {
     }
 
-}*/
+}
 
