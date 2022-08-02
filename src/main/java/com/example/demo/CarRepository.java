@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CarRepository {
 
-    public static void main(String[] args) throws SQLException {
+    /*public static void main(String[] args) throws SQLException {
         getConnection();
 
         Car car = new Car();
@@ -17,7 +17,7 @@ public class CarRepository {
         car.setBodyType("Coupe");
 
         save(car);
-    }
+    }*/
 
     public static Connection getConnection() {
 

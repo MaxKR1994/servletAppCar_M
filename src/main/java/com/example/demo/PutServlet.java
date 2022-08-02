@@ -22,7 +22,7 @@ public class PutServlet extends HttpServlet {
         int id = Integer.parseInt(sid);
 
         String brand = request.getParameter("brand");
-        String model = request.getParameter("bodyType");
+        String model = request.getParameter("model");
         String producingCountry = request.getParameter("producingCountry");
         String bodyType = request.getParameter("bodyType");
 

@@ -21,7 +21,7 @@ public class SaveServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String brand = request.getParameter("brand");
-        String model = request.getParameter("bodyType");
+        String model = request.getParameter("model");
         String producingCountry = request.getParameter("producingCountry");
         String bodyType = request.getParameter("bodyType");
 
