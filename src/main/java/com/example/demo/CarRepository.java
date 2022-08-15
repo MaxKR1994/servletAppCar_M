@@ -3,7 +3,12 @@ package com.example.demo;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.example.demo.interceptor.Logged;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Logged
+@Slf4j
 public class CarRepository {
 
     /*public static void main(String[] args) throws SQLException {
@@ -18,7 +23,7 @@ public class CarRepository {
 
         save(car);
     }*/
-
+    @Logged
     public static Connection getConnection() {
 
         Connection connection = null;
@@ -27,46 +32,50 @@ public class CarRepository {
         String password = "JavaMax1994";
 
         try {
+            log.info("Start connecting to the server");
             connection = DriverManager.getConnection(url, user, password);
             if (connection != null) {
-                System.out.println("Connected to the PostgreSQL server successfully.");
+                log.info("Connected to the PostgreSQL server successfully.");
             } else {
-                System.out.println("Failed to make connection!");
+                log.info("Failed to make connection!");
             }
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
         return connection;
     }
-
+    @Logged
     public static int save(Car car) throws SQLException {
         int status = 0;
         Connection connection = null;
         try {
+            log.info("Start saving object = {}", car);
             connection = CarRepository.getConnection();
             PreparedStatement ps = connection.prepareStatement("insert into wheels(brand,model,producingCountry,bodyType) values (?,?,?,?)");
             ps.setString(1, car.getBrand());
             ps.setString(2, car.getModel());
             ps.setString(3, car.getProducingCountry());
             ps.setString(4, car.getBodyType());
-
             status = ps.executeUpdate();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            log.info("Failed to save");
         } finally {
             assert connection != null;
             connection.close();
         }
+        log.info("save() - end = {}",status);
         return status;
     }
-
+    @Logged
     public static int update(Car car) throws SQLException {
 
         int status = 0;
 
         Connection connection = null;
         try {
+            log.info("Start updating object = {}", car);
             connection = CarRepository.getConnection();
             PreparedStatement ps = connection.prepareStatement("update wheels set brand=?,model=?,producingCountry=?,bodyType=? where id=?");
             ps.setString(1, car.getBrand());
@@ -80,19 +89,22 @@ public class CarRepository {
 
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
+            log.info("Failed to update");
         } finally {
             assert connection != null;
             connection.close();
         }
+        log.info("update() - end = {}", status);
         return status;
     }
-
+    @Logged
     public static int delete(int id) throws SQLException {
 
         int status = 0;
 
         Connection connection = null;
         try {
+            log.info("Start deleting object = {}", id);
             connection = CarRepository.getConnection();
             PreparedStatement ps = connection.prepareStatement("delete from wheels where id=?");
             ps.setInt(1, id);
@@ -104,15 +116,17 @@ public class CarRepository {
             assert connection != null;
             connection.close();
         }
+        log.info("delete() - end = {}", status);
         return status;
     }
-
+    @Logged
     public static Car getCarById(int id) throws SQLException {
 
         Car car = new Car();
 
         Connection connection = null;
         try {
+            log.info("getCarById() - start = {}, ID: ", id);
             connection = CarRepository.getConnection();
             PreparedStatement ps = connection.prepareStatement("select * from wheels where id=?");
             ps.setInt(1, id);
@@ -131,15 +145,17 @@ public class CarRepository {
             assert connection != null;
             connection.close();
         }
+        log.info("getCarById() - end = {}", car);
         return car;
     }
-
+    @Logged
     public static List<Car> getAllCars() throws SQLException {
 
         List<Car> listCars = new ArrayList<>();
 
         Connection connection = null;
         try {
+            log.info("getAllCars() - start");
             connection = CarRepository.getConnection();
             PreparedStatement ps = connection.prepareStatement("select * from wheels");
             ResultSet rs = ps.executeQuery();
@@ -162,6 +178,7 @@ public class CarRepository {
             assert connection != null;
             connection.close();
         }
+        log.info("getAllCars() - end");
         return listCars;
     }
 }
