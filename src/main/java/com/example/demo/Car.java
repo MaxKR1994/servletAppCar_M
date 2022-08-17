@@ -5,7 +5,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@EqualsAndHashCode
 
 public class Car {
 
@@ -15,4 +15,21 @@ public class Car {
     private String producingCountry;
     private String bodyType;
 
+    public Car(String brand, String model, String producingCountry, String bodyType) {
+        this.brand = brand;
+        this.model = model;
+        this.producingCountry = producingCountry;
+        this.bodyType = bodyType;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", producingCountry='" + producingCountry + '\'' +
+                ", bodyType='" + bodyType + '\'' +
+                '}';
+    }
 }
